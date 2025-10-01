@@ -1,9 +1,9 @@
 // Products
 const products = [
-    {name:"Blue T-Shirt", category:"clothing", price:25, description:"Comfortable cotton t-shirt.", image:"assets/images/product1.jpg"},
-    {name:"Headphones", category:"electronics", price:60, description:"High-quality over-ear headphones.", image:"assets/images/product2.jpg"},
-    {name:"Handmade Vase", category:"handicrafts", price:30, description:"Beautiful ceramic vase.", image:"assets/images/product3.jpg"},
-    {name:"Red Hoodie", category:"clothing", price:40, description:"Warm hoodie for winter.", image:"assets/images/product4.jpg"},
+    {name:"Blue T-Shirt", category:"clothing", price:1999, description:"Comfortable cotton t-shirt.", image:"https://via.placeholder.com/200x150?text=Blue+T-Shirt"},
+    {name:"Headphones", category:"electronics", price:4499, description:"High-quality over-ear headphones.", image:"https://via.placeholder.com/200x150?text=Headphones"},
+    {name:"Handmade Vase", category:"handicrafts", price:2499, description:"Beautiful ceramic vase.", image:"https://via.placeholder.com/200x150?text=Vase"},
+    {name:"Red Hoodie", category:"clothing", price:2999, description:"Warm hoodie for winter.", image:"https://via.placeholder.com/200x150?text=Red+Hoodie"},
 ];
 
 // DOM Elements
@@ -35,7 +35,7 @@ function displayProducts(list) {
             <img src="${product.image}" alt="${product.name}">
             <h3>${product.name}</h3>
             <p>${product.description}</p>
-            <p class="price">$${product.price}</p>
+            <p class="price">₹${product.price}</p>
             <button>Add to Cart</button>
         `;
         card.querySelector("img").addEventListener("click",()=>openModal(product));
@@ -60,7 +60,7 @@ function openModal(product){
     modalImg.src=product.image;
     modalName.textContent=product.name;
     modalDesc.textContent=product.description;
-    modalPrice.textContent=`$${product.price}`;
+    modalPrice.textContent=`₹${product.price}`;
 }
 closeBtn.addEventListener("click",()=>modal.style.display="none");
 window.addEventListener("click",(e)=>{if(e.target===modal) modal.style.display="none"});
@@ -95,10 +95,10 @@ function updateCart(){
 }
 
 // Search
-function searchProducts(){
+searchInput.addEventListener("input", ()=>{
     const val = searchInput.value.toLowerCase();
     displayProducts(products.filter(p=>p.name.toLowerCase().includes(val) || p.description.toLowerCase().includes(val)));
-}
+});
 
 // Initial Display
 displayProducts(products);
