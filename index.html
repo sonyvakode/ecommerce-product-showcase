@@ -2,36 +2,25 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Shop</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
   <header>
     <h1>🛍️ My Shop</h1>
-    <input type="text" id="searchBar" placeholder="Search products...">
-    <div class="cart-icon">
-      🛒 Cart: <span id="cart-count">0</span>
-    </div>
+    <input type="text" id="search" placeholder="Search products...">
+    <span id="cart-icon">🛒 Cart: <span id="cart-count">0</span></span>
   </header>
 
-  <nav class="categories">
-    <button onclick="filterProducts('all')">All</button>
-    <button onclick="filterProducts('clothing')">Clothing</button>
-    <button onclick="filterProducts('electronics')">Electronics</button>
-    <button onclick="filterProducts('handicrafts')">Handicrafts</button>
-  </nav>
+  <!-- Dynamic Filters (JS will inject buttons here) -->
+  <nav id="filters"></nav>
 
   <main>
-    <section id="products" class="product-grid">
-      <!-- Products injected from JS -->
-    </section>
-
+    <section id="product-list" class="products"></section>
     <aside class="cart">
       <h2>Shopping Cart</h2>
       <ul id="cart-items"></ul>
-      <p>Total: ₹<span id="cart-total">0</span></p>
+      <p><strong>Total: ₹<span id="cart-total">0</span></strong></p>
     </aside>
   </main>
 
