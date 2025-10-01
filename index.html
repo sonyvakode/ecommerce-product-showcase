@@ -3,12 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Small Business Product Showcase</title>
+    <title>Mini E-Commerce Showcase</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header>
-        <h1>Product Showcase</h1>
+        <div class="top-bar">
+            <input type="text" id="search" placeholder="Search products..." onkeyup="searchProducts()">
+            <div class="cart-icon">
+                🛒 Cart (<span id="cart-count">0</span>)
+            </div>
+        </div>
         <nav>
             <button class="filter-btn" data-category="all">All</button>
             <button class="filter-btn" data-category="clothing">Clothing</button>
@@ -19,6 +24,11 @@
 
     <main>
         <div id="product-gallery" class="gallery"></div>
+        <div class="cart">
+            <h2>Your Cart</h2>
+            <ul id="cart-items"></ul>
+            <p>Total: $<span id="total-price">0</span></p>
+        </div>
     </main>
 
     <!-- Modal -->
@@ -29,6 +39,7 @@
             <h2 id="modal-name"></h2>
             <p id="modal-desc"></p>
             <p id="modal-price"></p>
+            <button id="modal-add-cart">Add to Cart</button>
         </div>
     </div>
 
