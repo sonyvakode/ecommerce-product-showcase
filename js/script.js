@@ -1,18 +1,26 @@
 // User profile (example - can be replaced dynamically)
 const user = {
-    name: "Sony Vakode", // any user name can be displayed
+    name: "Sony Vakode", // any user name can appear here
     email: "sony.vakode@example.com",
     address: "Hyderabad, India"
 };
 
-// Function to display user greeting dynamically
+// Display user greeting dynamically
 function displayUserGreeting() {
     const greetingEl = document.getElementById('userGreeting');
     if (greetingEl) {
         greetingEl.textContent = `Welcome, ${user.name}!`;
+        // Optional: add some styling
+        greetingEl.style.display = 'block';
+        greetingEl.style.marginBottom = '10px';
+        greetingEl.style.fontWeight = 'bold';
+        greetingEl.style.fontSize = '18px';
+        greetingEl.style.color = '#0077cc';
     }
 }
 
+// Call this on page load
+displayUserGreeting();
 // Product data array
 const products = [
     { id: 1, name: "Men's Shirt", price: 25, category: "men", image: "shirt.jpg" },
