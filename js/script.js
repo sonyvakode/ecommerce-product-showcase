@@ -1,17 +1,17 @@
-// Product data array
+// Product data array - UPDATE IMAGE NAMES TO MATCH YOUR FILES
 const products = [
-    { id: 1, name: "Men's Shirt", price: 25, category: "men", image: "shirt.jpg" },
-    { id: 2, name: "Women's Dress", price: 40, category: "women", image: "dress.jpg" },
-    { id: 3, name: "Headphones", price: 60, category: "headphones", image: "headphones.jpg" },
-    { id: 4, name: "Makeup Kit", price: 35, category: "makeup", image: "makeup.jpg" },
-    { id: 5, name: "Men's Jeans", price: 45, category: "men", image: "jeans.jpg" },
-    { id: 6, name: "Women's Top", price: 30, category: "women", image: "top.jpg" },
-    { id: 7, name: "Girls' Dress", price: 28, category: "girls", image: "girls-dress.jpg" },
-    { id: 8, name: "Baby Clothes Set", price: 22, category: "baby", image: "baby.jpg" },
-    { id: 9, name: "Wireless Earbuds", price: 55, category: "headphones", image: "earbuds.jpg" },
-    { id: 10, name: "Leather Wallet", price: 18, category: "accessories", image: "wallet.jpg" },
-    { id: 11, name: "Sunglasses", price: 32, category: "accessories", image: "sunglasses.jpg" },
-    { id: 12, name: "Lipstick Set", price: 25, category: "makeup", image: "lipstick.jpg" }
+    { id: 1, name: "Men's Shirt", price: 25, category: "men", image: "images/shirt.jpg" },
+    { id: 2, name: "Women's Dress", price: 40, category: "women", image: "images/dress.jpg" },
+    { id: 3, name: "Headphones", price: 60, category: "headphones", image: "images/headphones.jpg" },
+    { id: 4, name: "Makeup Kit", price: 35, category: "makeup", image: "images/makeup.jpg" },
+    { id: 5, name: "Men's Jeans", price: 45, category: "men", image: "images/jeans.jpg" },
+    { id: 6, name: "Women's Top", price: 30, category: "women", image: "images/top.jpg" },
+    { id: 7, name: "Girls' Dress", price: 28, category: "girls", image: "images/girls-dress.jpg" },
+    { id: 8, name: "Baby Clothes Set", price: 22, category: "baby", image: "images/baby.jpg" },
+    { id: 9, name: "Wireless Earbuds", price: 55, category: "headphones", image: "images/earbuds.jpg" },
+    { id: 10, name: "Leather Wallet", price: 18, category: "accessories", image: "images/wallet.jpg" },
+    { id: 11, name: "Sunglasses", price: 32, category: "accessories", image: "images/sunglasses.jpg" },
+    { id: 12, name: "Lipstick Set", price: 25, category: "makeup", image: "images/lipstick.jpg" }
 ];
 
 // Cart array to store added products
@@ -28,7 +28,10 @@ function displayProducts(productsToShow) {
     const grid = document.getElementById('productsGrid');
     grid.innerHTML = productsToShow.map(product => `
         <div class="product-card">
-            <div class="product-image"></div>
+            <img src="${product.image}" 
+                 alt="${product.name}" 
+                 class="product-image"
+                 onerror="this.style.background='linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)'; this.src='';">
             <div class="product-title">${product.name}</div>
             <div class="product-price">$${product.price}</div>
             <button class="add-to-cart-btn" onclick="addToCart(${product.id})">Add to Cart</button>
