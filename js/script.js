@@ -21,6 +21,25 @@ function displayUserGreeting() {
 
 // Call this on page load
 displayUserGreeting();
+}
+
+// Save user data on form submit
+document.getElementById('userForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const updatedUser = {
+        name: document.getElementById('userName').value,
+        email: document.getElementById('userEmail').value,
+        address: document.getElementById('userAddress').value
+    };
+    localStorage.setItem('user', JSON.stringify(updatedUser));
+
+    // Update greeting dynamically
+    user.name = updatedUser.name;
+    displayUserGreeting();
+
+    alert('User settings saved successfully!');
+});
+
 // Product data array
 const products = [
     { id: 1, name: "Men's Shirt", price: 25, category: "men", image: "shirt.jpg" },
