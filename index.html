@@ -3,39 +3,57 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>E-Commerce Store</title>
+  <title>Clothing Store</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-  <!-- Navbar -->
-  <header class="navbar">
-    <div class="left">
-      <input type="text" id="search" placeholder="Search products..." onkeyup="searchProducts()">
+  <!-- 🔹 Sticky Header -->
+  <header>
+    <div class="logo">🛍️ Fashion & More</div>
+    <div class="search-bar">
+      <input type="text" id="search-input" placeholder="Search for products...">
+      <button onclick="searchProducts()">🔍</button>
     </div>
-    <div class="right">
-      <span class="cart-icon">🛒</span>
-      <span id="cart-count">0</span> items | ₹<span id="total-price">0</span>
-    </div>
+    <nav>
+      <a href="card.html">🛒 Cart (<span id="cart-count">0</span>)</a>
+      <a href="wishlist.html">❤️ Wishlist (<span id="wishlist-count">0</span>)</a>
+    </nav>
   </header>
 
-  <!-- Filters -->
-  <div class="filters">
-    <button class="filter-btn" data-category="all">All</button>
-    <button class="filter-btn" data-category="clothing">Clothing</button>
-    <button class="filter-btn" data-category="electronics">Electronics</button>
-    <button class="filter-btn" data-category="handicrafts">Handicrafts</button>
+  <!-- 🔹 Category Filter -->
+  <div class="categories">
+    <button onclick="filterCategory('all')">All</button>
+    <button onclick="filterCategory('mens')">Mens</button>
+    <button onclick="filterCategory('womens')">Womens</button>
+    <button onclick="filterCategory('boys')">Boys</button>
+    <button onclick="filterCategory('girls')">Girls</button>
+    <button onclick="filterCategory('baby')">Baby</button>
+    <button onclick="filterCategory('electronics')">Electronics</button>
+    <button onclick="filterCategory('accessories')">Accessories</button>
+    <button onclick="filterCategory('makeup')">Makeup</button>
+    <button onclick="filterCategory('other')">Other</button>
   </div>
 
-  <!-- Products -->
-  <div id="product-gallery" class="gallery"></div>
-
-  <!-- Cart Items -->
-  <div class="cart-container">
-    <h2>Shopping Cart</h2>
-    <ul id="cart-items"></ul>
+  <!-- 🔹 Sorting -->
+  <div class="sort-bar">
+    <label for="sort">Sort By:</label>
+    <select id="sort" onchange="sortProducts()">
+      <option value="default">Default</option>
+      <option value="low-high">Price: Low to High</option>
+      <option value="high-low">Price: High to Low</option>
+      <option value="a-z">Name: A–Z</option>
+      <option value="z-a">Name: Z–A</option>
+    </select>
   </div>
 
+  <!-- 🔹 Products -->
+  <main>
+    <div class="product-container" id="product-list">
+      <!-- Products will be loaded here -->
+    </div>
+  </main>
+
+  <script src="app.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
