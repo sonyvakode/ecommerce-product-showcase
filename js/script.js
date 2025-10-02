@@ -1,37 +1,21 @@
 // Products
-let products = [
-    {name:"Blue T-Shirt", category:"clothing", price:1999, description:"Comfortable cotton t-shirt.", image:"https://via.placeholder.com/200x150?text=Blue+T-Shirt"},
-    {name:"Headphones", category:"electronics", price:4499, description:"High-quality over-ear headphones.", image:"https://via.placeholder.com/200x150?text=Headphones"},
-    {name:"Handmade Vase", category:"handicrafts", price:2499, description:"Beautiful ceramic vase.", image:"https://via.placeholder.com/200x150?text=Vase"},
-    {name:"Red Hoodie", category:"clothing", price:2999, description:"Warm hoodie for winter.", image:"https://via.placeholder.com/200x150?text=Red+Hoodie"},
+const products = [
+    {name:"Blue T-Shirt", category:"clothing", price:499, description:"Comfortable cotton t-shirt.", image:"assets/images/product1.jpg"},
+    {name:"Headphones", category:"electronics", price:2499, description:"High-quality over-ear headphones.", image:"assets/images/product2.jpg"},
+    {name:"Handmade Vase", category:"handicrafts", price:899, description:"Beautiful ceramic vase.", image:"assets/images/product3.jpg"},
+    {name:"Red Hoodie", category:"clothing", price:1299, description:"Warm hoodie for winter.", image:"assets/images/product4.jpg"},
 ];
 
 // DOM Elements
 const gallery = document.getElementById("product-gallery");
 const filterButtons = document.querySelectorAll(".filter-btn");
-const modal = document.getElementById("modal");
-const modalImg = document.getElementById("modal-img");
-const modalName = document.getElementById("modal-name");
-const modalDesc = document.getElementById("modal-desc");
-const modalPrice = document.getElementById("modal-price");
-const modalAddCart = document.getElementById("modal-add-cart");
-const closeBtn = document.querySelector(".close");
 const cartItemsEl = document.getElementById("cart-items");
 const totalPriceEl = document.getElementById("total-price");
 const cartCount = document.getElementById("cart-count");
 const searchInput = document.getElementById("search");
 
-// Add Product Form Elements
-const newName = document.getElementById("new-name");
-const newDesc = document.getElementById("new-desc");
-const newCategory = document.getElementById("new-category");
-const newPrice = document.getElementById("new-price");
-const newImage = document.getElementById("new-image");
-const addProductBtn = document.getElementById("add-product-btn");
-
 // Cart
 let cart = [];
-let currentProduct = null;
 
 // Display products
 function displayProducts(list) {
@@ -46,7 +30,6 @@ function displayProducts(list) {
             <p class="price">₹${product.price}</p>
             <button>Add to Cart</button>
         `;
-        card.querySelector("img").addEventListener("click",()=>openModal(product));
         card.querySelector("button").addEventListener("click",()=>addToCart(product));
         gallery.appendChild(card);
     });
@@ -60,19 +43,6 @@ filterButtons.forEach(btn=>{
         else displayProducts(products.filter(p=>p.category===category));
     });
 });
-
-// Modal
-function openModal(product){
-    currentProduct = product;
-    modal.style.display="block";
-    modalImg.src=product.image;
-    modalName.textContent=product.name;
-    modalDesc.textContent=product.description;
-    modalPrice.textContent=`₹${product.price}`;
-}
-closeBtn.addEventListener("click",()=>modal.style.display="none");
-window.addEventListener("click",(e)=>{if(e.target===modal) modal.style.display="none"});
-modalAddCart.addEventListener("click",()=>{addToCart(currentProduct); modal.style.display="none";});
 
 // Add to Cart
 function addToCart(product){
@@ -95,7 +65,8 @@ function updateCart(){
     cart.forEach(item=>{
         total += item.price * item.qty;
         const li = document.createElement("li");
-        li.innerHTML=`${item.name} x ${item.qty} <button onclick="removeFromCart({name:'${item.name}'})">Remove</button>`;
+        li.innerHTML=`${item.name} x ${item.qty} - ₹${item.price*item.qty} 
+        <button onclick="removeFromCart({name:'${item.name}'})">Remove</button>`;
         cartItemsEl.appendChild(li);
     });
     totalPriceEl.textContent = total.toFixed(2);
@@ -103,35 +74,10 @@ function updateCart(){
 }
 
 // Search
-searchInput.addEventListener("input", ()=>{
+function searchProducts(){
     const val = searchInput.value.toLowerCase();
     displayProducts(products.filter(p=>p.name.toLowerCase().includes(val) || p.description.toLowerCase().includes(val)));
-});
-
-// Add new product dynamically
-addProductBtn.addEventListener("click", ()=>{
-    const name = newName.value.trim();
-    const desc = newDesc.value.trim();
-    const category = newCategory.value.trim();
-    const price = parseInt(newPrice.value.trim());
-    const image = newImage.value.trim();
-
-    if(!name || !desc || !category || !price || !image){
-        alert("Please fill all fields");
-        return;
-    }
-
-    const newProduct = {name, category, price, description:desc, image};
-    products.push(newProduct);
-    displayProducts(products);
-
-    // Reset fields
-    newName.value = "";
-    newDesc.value = "";
-    newCategory.value = "";
-    newPrice.value = "";
-    newImage.value = "";
-});
+}
 
 // Initial Display
 displayProducts(products);
