@@ -1,3 +1,18 @@
+// User profile (example)
+const user = {
+    name: "Sony Vakode", // This can be changed dynamically for any user
+    email: "sony.vakode@example.com",
+    address: "Hyderabad, India"
+};
+
+// Function to display user greeting dynamically
+function displayUserGreeting() {
+    const greetingEl = document.getElementById('userGreeting');
+    if (greetingEl) {
+        greetingEl.textContent = `Welcome, ${user.name}!`;
+    }
+}
+
 // Product data array
 const products = [
     { id: 1, name: "Men's Shirt", price: 25, category: "men", image: "shirt.jpg" },
@@ -30,7 +45,7 @@ function displayProducts(productsToShow) {
         <div class="product-card">
             <div class="product-image"></div>
             <div class="product-title">${product.name}</div>
-            <div class="product-price">$${product.price}</div>
+            <div class="product-price">₹${product.price}</div>
             <button class="add-to-cart-btn" onclick="addToCart(${product.id})">Add to Cart</button>
         </div>
     `).join('');
@@ -97,11 +112,12 @@ function viewCart() {
     if (cart.length === 0) {
         alert('Your cart is empty!');
     } else {
-        const cartItems = cart.map(item => `${item.name} - $${item.price}`).join('\n');
+        const cartItems = cart.map(item => `${item.name} - ₹${item.price}`).join('\n');
         const total = cart.reduce((sum, item) => sum + item.price, 0);
-        alert(`Cart Items:\n${cartItems}\n\nTotal: $${total}`);
+        alert(`Cart Items:\n${cartItems}\n\nTotal: ₹${total}`);
     }
 }
 
 // Initialize page with all products when page loads
 displayProducts(products);
+displayUserGreeting(); // Display the user's name dynamically
