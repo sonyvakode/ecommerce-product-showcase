@@ -3,57 +3,49 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Clothing Store</title>
+  <title>MyStore E-Commerce</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- 🔹 Sticky Header -->
+
+  <!-- HEADER -->
   <header>
-    <div class="logo">🛍️ Fashion & More</div>
+    <div class="logo">🛍️ MyStore</div>
     <div class="search-bar">
-      <input type="text" id="search-input" placeholder="Search for products...">
-      <button onclick="searchProducts()">🔍</button>
+      <input type="text" id="search" placeholder="Search products...">
+      <button>Search</button>
     </div>
-    <nav>
-      <a href="card.html">🛒 Cart (<span id="cart-count">0</span>)</a>
-      <a href="wishlist.html">❤️ Wishlist (<span id="wishlist-count">0</span>)</a>
-    </nav>
+    <div class="header-right">
+      <a href="card.html" class="cart">🛒 Cart (<span id="cart-count">0</span>)</a>
+    </div>
   </header>
 
-  <!-- 🔹 Category Filter -->
-  <div class="categories">
-    <button onclick="filterCategory('all')">All</button>
-    <button onclick="filterCategory('mens')">Mens</button>
-    <button onclick="filterCategory('womens')">Womens</button>
-    <button onclick="filterCategory('boys')">Boys</button>
-    <button onclick="filterCategory('girls')">Girls</button>
-    <button onclick="filterCategory('baby')">Baby</button>
-    <button onclick="filterCategory('electronics')">Electronics</button>
-    <button onclick="filterCategory('accessories')">Accessories</button>
-    <button onclick="filterCategory('makeup')">Makeup</button>
-    <button onclick="filterCategory('other')">Other</button>
-  </div>
-
-  <!-- 🔹 Sorting -->
-  <div class="sort-bar">
-    <label for="sort">Sort By:</label>
-    <select id="sort" onchange="sortProducts()">
-      <option value="default">Default</option>
-      <option value="low-high">Price: Low to High</option>
-      <option value="high-low">Price: High to Low</option>
-      <option value="a-z">Name: A–Z</option>
-      <option value="z-a">Name: Z–A</option>
-    </select>
-  </div>
-
-  <!-- 🔹 Products -->
+  <!-- MAIN LAYOUT -->
   <main>
-    <div class="product-container" id="product-list">
-      <!-- Products will be loaded here -->
-    </div>
+    <!-- SIDEBAR CATEGORIES -->
+    <aside class="sidebar">
+      <h3>Categories</h3>
+      <ul id="category-list">
+        <li><button onclick="filterCategory('all', this)">All</button></li>
+        <li><button onclick="filterCategory('men', this)">Men</button></li>
+        <li><button onclick="filterCategory('women', this)">Women</button></li>
+        <li><button onclick="filterCategory('girls', this)">Girls</button></li>
+        <li><button onclick="filterCategory('baby', this)">Baby</button></li>
+        <li><button onclick="filterCategory('headphones', this)">Headphones</button></li>
+        <li><button onclick="filterCategory('accessories', this)">Accessories</button></li>
+        <li><button onclick="filterCategory('makeup', this)">Makeup</button></li>
+      </ul>
+    </aside>
+
+    <!-- PRODUCT GRID -->
+    <section class="product-container" id="product-list"></section>
   </main>
 
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 MyStore - All rights reserved</p>
+  </footer>
+
   <script src="app.js"></script>
-  <script src="script.js"></script>
 </body>
 </html>
