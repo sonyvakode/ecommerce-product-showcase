@@ -1,56 +1,107 @@
-let currentProducts = [...products];
+// Product data array
+const products = [
+    { id: 1, name: "Men's Shirt", price: 25, category: "men", image: "shirt.jpg" },
+    { id: 2, name: "Women's Dress", price: 40, category: "women", image: "dress.jpg" },
+    { id: 3, name: "Headphones", price: 60, category: "headphones", image: "headphones.jpg" },
+    { id: 4, name: "Makeup Kit", price: 35, category: "makeup", image: "makeup.jpg" },
+    { id: 5, name: "Men's Jeans", price: 45, category: "men", image: "jeans.jpg" },
+    { id: 6, name: "Women's Top", price: 30, category: "women", image: "top.jpg" },
+    { id: 7, name: "Girls' Dress", price: 28, category: "girls", image: "girls-dress.jpg" },
+    { id: 8, name: "Baby Clothes Set", price: 22, category: "baby", image: "baby.jpg" },
+    { id: 9, name: "Wireless Earbuds", price: 55, category: "headphones", image: "earbuds.jpg" },
+    { id: 10, name: "Leather Wallet", price: 18, category: "accessories", image: "wallet.jpg" },
+    { id: 11, name: "Sunglasses", price: 32, category: "accessories", image: "sunglasses.jpg" },
+    { id: 12, name: "Lipstick Set", price: 25, category: "makeup", image: "lipstick.jpg" }
+];
 
-document.addEventListener("DOMContentLoaded", () => {
-  updateCartCount();
-  updateWishlistCount();
-  renderProducts(currentProducts);
-});
+// Cart array to store added products
+let cart = [];
 
-// Render products
-function renderProducts(list) {
-  const container = document.getElementById("product-list");
-  if (!container) return;
-  container.innerHTML = "";
-  list.forEach(p => {
-    const card = document.createElement("div");
-    card.className = "product-card";
-    card.innerHTML = `
-      <img src="${p.img}" alt="${p.name}">
-      <h3>${p.name}</h3>
-      <p>$${p.price}</p>
-      <button onclick="addToCart(${p.id})">🛒 Add</button>
-      <button onclick="addToWishlist(${p.id})">❤️ Wishlist</button>
-      <button onclick="viewDetails(${p.id})">👀 View</button>
-    `;
-    container.appendChild(card);
-  });
+// Current selected category
+let currentCategory = 'all';
+
+/**
+ * Display products on the page
+ * @param {Array} productsToShow - Array of products to display
+ */
+function displayProducts(productsToShow) {
+    const grid = document.getElementById('productsGrid');
+    grid.innerHTML = productsToShow.map(product => `
+        <div class="product-card">
+            <div class="product-image"></div>
+            <div class="product-title">${product.name}</div>
+            <div class="product-price">$${product.price}</div>
+            <button class="add-to-cart-btn" onclick="addToCart(${product.id})">Add to Cart</button>
+        </div>
+    `).join('');
 }
 
-// Category Filter
+/**
+ * Filter products by category
+ * @param {string} category - Category to filter by
+ */
 function filterCategory(category) {
-  currentProducts = category === "all" ? [...products] : products.filter(p => p.category === category);
-  renderProducts(currentProducts);
+    currentCategory = category;
+    
+    // Remove active class from all buttons
+    const buttons = document.querySelectorAll('.category-btn');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    
+    // Add active class to clicked button
+    event.target.classList.add('active');
+
+    // Filter products based on category
+    const filtered = category === 'all' 
+        ? products 
+        : products.filter(p => p.category === category);
+    
+    displayProducts(filtered);
 }
 
-// Search
+/**
+ * Search products by name
+ */
 function searchProducts() {
-  const query = document.getElementById("search-input").value.toLowerCase();
-  currentProducts = products.filter(p => p.name.toLowerCase().includes(query));
-  renderProducts(currentProducts);
+    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+    
+    // Filter products that match search term
+    const filtered = products.filter(p => 
+        p.name.toLowerCase().includes(searchTerm)
+    );
+    
+    displayProducts(filtered);
 }
 
-// Sorting
-function sortProducts() {
-  const sortValue = document.getElementById("sort").value;
-  if (sortValue === "low-high") currentProducts.sort((a, b) => a.price - b.price);
-  else if (sortValue === "high-low") currentProducts.sort((a, b) => b.price - a.price);
-  else if (sortValue === "a-z") currentProducts.sort((a, b) => a.name.localeCompare(b.name));
-  else if (sortValue === "z-a") currentProducts.sort((a, b) => b.name.localeCompare(a.name));
-  else currentProducts = [...products];
-  renderProducts(currentProducts);
+/**
+ * Add product to cart
+ * @param {number} productId - ID of product to add
+ */
+function addToCart(productId) {
+    const product = products.find(p => p.id === productId);
+    cart.push(product);
+    updateCartCount();
+    alert(`${product.name} added to cart!`);
 }
 
-// Details Page
-function viewDetails(id) {
-  window.location.href = `details.html?id=${id}`;
+/**
+ * Update cart count in header
+ */
+function updateCartCount() {
+    document.getElementById('cartCount').textContent = cart.length;
 }
+
+/**
+ * View cart contents
+ */
+function viewCart() {
+    if (cart.length === 0) {
+        alert('Your cart is empty!');
+    } else {
+        const cartItems = cart.map(item => `${item.name} - $${item.price}`).join('\n');
+        const total = cart.reduce((sum, item) => sum + item.price, 0);
+        alert(`Cart Items:\n${cartItems}\n\nTotal: $${total}`);
+    }
+}
+
+// Initialize page with all products when page loads
+displayProducts(products);
