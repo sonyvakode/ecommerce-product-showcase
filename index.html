@@ -3,51 +3,211 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MyStore - Online Shopping</title>
+    <title>MyStore - Shop Online</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="container">
-         <!-- User greeting displayed here -->
-        <span id="userGreeting"></span>
-        <!-- Header Section -->
-        <header>
-            <div class="header-content">
-                <h1>🛍️ MyStore</h1>
-                <div class="search-container">
-                    <input type="text" id="searchInput" placeholder="Search products...">
-                    <button onclick="searchProducts()">Search</button>
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLogin()">&times;</span>
+            <div class="login-container">
+                <img src="images/logo.png" alt="MyStore Logo" class="login-logo" onerror="this.style.display='none'">
+                <h2>Sign In</h2>
+                
+                <div id="phoneStep" class="login-step">
+                    <label>Mobile Number</label>
+                    <div class="phone-input">
+                        <select id="countryCode">
+                            <option value="+91">+91 (IN)</option>
+                            <option value="+1">+1 (US)</option>
+                            <option value="+44">+44 (UK)</option>
+                        </select>
+                        <input type="tel" id="phoneNumber" placeholder="Enter mobile number" maxlength="10">
+                    </div>
+                    <button class="btn-primary" onclick="sendOTP()">Continue</button>
+                    <p class="login-footer">By continuing, you agree to MyStore's Terms of Use and Privacy Policy.</p>
                 </div>
-                <a href="#" class="cart-link" onclick="viewCart()">🛒 Cart (<span id="cartCount">0</span>)</a>
+
+                <div id="otpStep" class="login-step" style="display: none;">
+                    <p class="otp-text">Enter OTP sent to <span id="displayPhone"></span> 
+                        <a href="#" onclick="changeNumber()">Change</a>
+                    </p>
+                    <input type="text" id="otpInput" placeholder="Enter 6-digit OTP" maxlength="6">
+                    <button class="btn-primary" onclick="verifyOTP()">Verify OTP</button>
+                    <p class="resend-otp">Didn't receive OTP? <a href="#" onclick="resendOTP()">Resend</a></p>
+                </div>
             </div>
-        </header>
-
-        <!-- Main Content Section -->
-        <div class="main-content">
-            <!-- Sidebar with Categories -->
-            <aside class="sidebar">
-                <h2>Categories</h2>
-                <button class="category-btn active" onclick="filterCategory('all')">All Products</button>
-                <button class="category-btn" onclick="filterCategory('men')">Men's Clothing</button>
-                <button class="category-btn" onclick="filterCategory('women')">Women's Clothing</button>
-                <button class="category-btn" onclick="filterCategory('girls')">Girls' Clothing</button>
-                <button class="category-btn" onclick="filterCategory('baby')">Baby Products</button>
-                <button class="category-btn" onclick="filterCategory('headphones')">Headphones</button>
-                <button class="category-btn" onclick="filterCategory('accessories')">Accessories</button>
-                <button class="category-btn" onclick="filterCategory('makeup')">Makeup</button>
-            </aside>
-
-            <!-- Products Display Area -->
-            <main class="products-section">
-                <div class="products-grid" id="productsGrid">
-                    <!-- Products will be loaded here by JavaScript -->
-                </div>
-            </main>
         </div>
     </div>
 
-    <!-- Link JavaScript File -->
+    <!-- Top Header -->
+    <header class="top-header">
+        <div class="header-content">
+            <div class="logo-section">
+                <img src="images/logo.png" alt="MyStore" class="logo" onerror="this.textContent='MyStore'">
+            </div>
+            
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search products...">
+                <button onclick="searchProducts()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="header-actions">
+                <button class="header-btn" onclick="showLogin()" id="signInBtn">
+                    <span>Hello, Sign in</span>
+                    <strong>Account</strong>
+                </button>
+                <button class="header-btn" onclick="viewOrders()">
+                    <span>Returns</span>
+                    <strong>& Orders</strong>
+                </button>
+                <button class="header-btn cart-btn" onclick="viewCart()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav class="mobile-bottom-nav">
+        <a href="#home" class="nav-item active">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            </svg>
+            <span>Home</span>
+        </a>
+        <a href="#you" class="nav-item" onclick="showLogin()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span>You</span>
+        </a>
+        <a href="#wallet" class="nav-item">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                <line x1="1" y1="10" x2="23" y2="10"></line>
+            </svg>
+            <span>Wallet</span>
+        </a>
+        <a href="#cart" class="nav-item" onclick="viewCart()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+            </svg>
+            <span>Cart</span>
+        </a>
+        <a href="#menu" class="nav-item" onclick="toggleMenu()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+            <span>Menu</span>
+        </a>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-container">
+        <!-- Top Picks Section -->
+        <section class="top-picks">
+            <h2>
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="gold">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+                Top Picks
+            </h2>
+            <div class="picks-grid">
+                <div class="pick-card" onclick="filterCategory('pay')">
+                    <img src="images/amazon-pay.png" alt="Amazon Pay" onerror="this.parentElement.querySelector('.pick-icon').style.display='flex'">
+                    <div class="pick-icon" style="display:none; background:#232f3e; color:white; font-size:40px;">💳</div>
+                    <p>MyStore Pay</p>
+                </div>
+                <div class="pick-card" onclick="filterCategory('electronics')">
+                    <img src="images/mobiles-electronics.png" alt="Mobiles" onerror="this.parentElement.querySelector('.pick-icon').style.display='flex'">
+                    <div class="pick-icon" style="display:none;">📱</div>
+                    <p>Mobiles & Electronics</p>
+                </div>
+                <div class="pick-card" onclick="filterCategory('bazaar')">
+                    <img src="images/bazaar.png" alt="Bazaar" onerror="this.parentElement.querySelector('.pick-icon').style.display='flex'">
+                    <div class="pick-icon" style="display:none; background:#e91e63; color:white; font-size:40px;">🛍️</div>
+                    <p>MyStore Bazaar</p>
+                </div>
+                <div class="pick-card" onclick="filterCategory('deals')">
+                    <img src="images/deals-savings.png" alt="Deals" onerror="this.parentElement.querySelector('.pick-icon').style.display='flex'">
+                    <div class="pick-icon" style="display:none; background:#ff9800; color:white; font-size:40px;">💰</div>
+                    <p>Deals & Savings</p>
+                </div>
+                <div class="pick-card" onclick="filterCategory('groceries')">
+                    <img src="images/groceries.png" alt="Groceries" onerror="this.parentElement.querySelector('.pick-icon').style.display='flex'">
+                    <div class="pick-icon" style="display:none;">🛒</div>
+                    <p>Groceries & Pet Supplies</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Top Categories Section -->
+        <section class="categories-section">
+            <h2>Top Categories For You</h2>
+            <div class="categories-grid" id="categoriesGrid">
+                <!-- Categories will be loaded here -->
+            </div>
+        </section>
+
+        <!-- Explore More Section -->
+        <section class="explore-section">
+            <h2>Explore More</h2>
+            <div class="explore-grid">
+                <div class="explore-card" onclick="alert('Prime membership coming soon!')">
+                    <div class="explore-icon" style="background: #00A8E1;">
+                        <span style="color:white; font-size:24px; font-weight:bold;">prime</span>
+                    </div>
+                    <p>Prime</p>
+                </div>
+                <div class="explore-card" onclick="alert('Business features coming soon!')">
+                    <div class="explore-icon" style="background: #5856D6;">
+                        <span style="color:white; font-size:18px; font-weight:bold;">amazon<br>business</span>
+                    </div>
+                    <p>Business</p>
+                </div>
+                <div class="explore-card" onclick="alert('FunZone coming soon!')">
+                    <div class="explore-icon" style="background: #7B3FE4;">
+                        <span style="color:white; font-size:20px; font-weight:bold;">FUN<br>ZONE</span>
+                    </div>
+                    <p>FunZone</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section class="products-section">
+            <h2 id="sectionTitle">All Products</h2>
+            <div class="products-grid" id="productsGrid">
+                <!-- Products will be loaded here -->
+            </div>
+        </section>
+
+        <!-- Desktop Action Buttons -->
+        <div class="desktop-actions">
+            <button class="action-btn" onclick="alert('Orders page coming soon!')">Orders</button>
+            <button class="action-btn" onclick="alert('Buy Again feature coming soon!')">Buy Again</button>
+            <button class="action-btn" onclick="showLogin()">Account</button>
+            <button class="action-btn" onclick="alert('Lists feature coming soon!')">Lists</button>
+        </div>
+    </main>
+
     <script src="js/script.js"></script>
 </body>
 </html>
-update in this that one greeting line dont do changes
