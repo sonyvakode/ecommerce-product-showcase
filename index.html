@@ -1,51 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MyStore E-Commerce</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyStore - Online Shopping</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <div class="container">
+        <!-- Header Section -->
+        <header>
+            <div class="header-content">
+                <h1>🛍️ MyStore</h1>
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Search products...">
+                    <button onclick="searchProducts()">Search</button>
+                </div>
+                <a href="#" class="cart-link" onclick="viewCart()">🛒 Cart (<span id="cartCount">0</span>)</a>
+            </div>
+        </header>
 
-  <!-- HEADER -->
-  <header>
-    <div class="logo">🛍️ MyStore</div>
-    <div class="search-bar">
-      <input type="text" id="search" placeholder="Search products...">
-      <button>Search</button>
+        <!-- Main Content Section -->
+        <div class="main-content">
+            <!-- Sidebar with Categories -->
+            <aside class="sidebar">
+                <h2>Categories</h2>
+                <button class="category-btn active" onclick="filterCategory('all')">All Products</button>
+                <button class="category-btn" onclick="filterCategory('men')">Men's Clothing</button>
+                <button class="category-btn" onclick="filterCategory('women')">Women's Clothing</button>
+                <button class="category-btn" onclick="filterCategory('girls')">Girls' Clothing</button>
+                <button class="category-btn" onclick="filterCategory('baby')">Baby Products</button>
+                <button class="category-btn" onclick="filterCategory('headphones')">Headphones</button>
+                <button class="category-btn" onclick="filterCategory('accessories')">Accessories</button>
+                <button class="category-btn" onclick="filterCategory('makeup')">Makeup</button>
+            </aside>
+
+            <!-- Products Display Area -->
+            <main class="products-section">
+                <div class="products-grid" id="productsGrid">
+                    <!-- Products will be loaded here by JavaScript -->
+                </div>
+            </main>
+        </div>
     </div>
-    <div class="header-right">
-      <a href="card.html" class="cart">🛒 Cart (<span id="cart-count">0</span>)</a>
-    </div>
-  </header>
 
-  <!-- MAIN LAYOUT -->
-  <main>
-    <!-- SIDEBAR CATEGORIES -->
-    <aside class="sidebar">
-      <h3>Categories</h3>
-      <ul id="category-list">
-        <li><button onclick="filterCategory('all', this)">All</button></li>
-        <li><button onclick="filterCategory('men', this)">Men</button></li>
-        <li><button onclick="filterCategory('women', this)">Women</button></li>
-        <li><button onclick="filterCategory('girls', this)">Girls</button></li>
-        <li><button onclick="filterCategory('baby', this)">Baby</button></li>
-        <li><button onclick="filterCategory('headphones', this)">Headphones</button></li>
-        <li><button onclick="filterCategory('accessories', this)">Accessories</button></li>
-        <li><button onclick="filterCategory('makeup', this)">Makeup</button></li>
-      </ul>
-    </aside>
-
-    <!-- PRODUCT GRID -->
-    <section class="product-container" id="product-list"></section>
-  </main>
-
-  <!-- FOOTER -->
-  <footer>
-    <p>© 2025 MyStore - All rights reserved</p>
-  </footer>
-
-  <script src="app.js"></script>
+    <!-- Link JavaScript File -->
+    <script src="js/script.js"></script>
 </body>
 </html>
