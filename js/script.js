@@ -1,44 +1,17 @@
 // User profile (example - can be replaced dynamically)
 const user = {
-    name: "Sony Vakode", // any user name can appear here
+    name: "Sony Vakode", // any user name can be displayed
     email: "sony.vakode@example.com",
     address: "Hyderabad, India"
 };
 
-// Display user greeting dynamically
+// Function to display user greeting dynamically
 function displayUserGreeting() {
     const greetingEl = document.getElementById('userGreeting');
     if (greetingEl) {
         greetingEl.textContent = `Welcome, ${user.name}!`;
-        // Optional: add some styling
-        greetingEl.style.display = 'block';
-        greetingEl.style.marginBottom = '10px';
-        greetingEl.style.fontWeight = 'bold';
-        greetingEl.style.fontSize = '18px';
-        greetingEl.style.color = '#0077cc';
     }
 }
-
-// Call this on page load
-displayUserGreeting();
-}
-
-// Save user data on form submit
-document.getElementById('userForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const updatedUser = {
-        name: document.getElementById('userName').value,
-        email: document.getElementById('userEmail').value,
-        address: document.getElementById('userAddress').value
-    };
-    localStorage.setItem('user', JSON.stringify(updatedUser));
-
-    // Update greeting dynamically
-    user.name = updatedUser.name;
-    displayUserGreeting();
-
-    alert('User settings saved successfully!');
-});
 
 // Product data array
 const products = [
