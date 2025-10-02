@@ -1,6 +1,6 @@
-// User profile (example)
+// User profile (example - can be replaced dynamically)
 const user = {
-    name: "Sony Vakode", // This can be changed dynamically for any user
+    name: "Sony Vakode", // any user name can be displayed
     email: "sony.vakode@example.com",
     address: "Hyderabad, India"
 };
@@ -37,7 +37,6 @@ let currentCategory = 'all';
 
 /**
  * Display products on the page
- * @param {Array} productsToShow - Array of products to display
  */
 function displayProducts(productsToShow) {
     const grid = document.getElementById('productsGrid');
@@ -53,23 +52,15 @@ function displayProducts(productsToShow) {
 
 /**
  * Filter products by category
- * @param {string} category - Category to filter by
  */
 function filterCategory(category) {
     currentCategory = category;
-    
-    // Remove active class from all buttons
     const buttons = document.querySelectorAll('.category-btn');
     buttons.forEach(btn => btn.classList.remove('active'));
-    
-    // Add active class to clicked button
     event.target.classList.add('active');
-
-    // Filter products based on category
     const filtered = category === 'all' 
         ? products 
         : products.filter(p => p.category === category);
-    
     displayProducts(filtered);
 }
 
@@ -78,18 +69,12 @@ function filterCategory(category) {
  */
 function searchProducts() {
     const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-    
-    // Filter products that match search term
-    const filtered = products.filter(p => 
-        p.name.toLowerCase().includes(searchTerm)
-    );
-    
+    const filtered = products.filter(p => p.name.toLowerCase().includes(searchTerm));
     displayProducts(filtered);
 }
 
 /**
  * Add product to cart
- * @param {number} productId - ID of product to add
  */
 function addToCart(productId) {
     const product = products.find(p => p.id === productId);
@@ -118,6 +103,6 @@ function viewCart() {
     }
 }
 
-// Initialize page with all products when page loads
+// Initialize page
 displayProducts(products);
-displayUserGreeting(); // Display the user's name dynamically
+displayUserGreeting(); // show user dynamically
