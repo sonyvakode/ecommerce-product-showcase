@@ -1,58 +1,79 @@
-// Core product data
 const products = [
-  { id: 1, name: "Blue Shirt", price: 25, img: "images/shirt.jpg", category: "mens" },
-  { id: 2, name: "Denim Jeans", price: 40, img: "images/jeans.jpg", category: "mens" },
-  { id: 3, name: "Leather Jacket", price: 60, img: "images/jacket.jpg", category: "mens" },
-  { id: 4, name: "Red Dress", price: 50, img: "images/dress.jpg", category: "womens" },
-  { id: 5, name: "Kids T-Shirt", price: 15, img: "images/kids.jpg", category: "boys" },
-  { id: 6, name: "Baby Romper", price: 20, img: "images/baby.jpg", category: "baby" },
-  { id: 7, name: "Girls Skirt", price: 30, img: "images/skirt.jpg", category: "girls" },
-  { id: 8, name: "Sports Cap", price: 10, img: "images/cap.jpg", category: "accessories" },
-  { id: 9, name: "Headphones", price: 70, img: "images/headphones.jpg", category: "electronics" },
-  { id: 10, name: "Smart Watch", price: 120, img: "images/watch.jpg", category: "electronics" },
-  { id: 11, name: "Makeup Kit", price: 45, img: "images/makeup.jpg", category: "makeup" },
-  { id: 12, name: "Handbag", price: 55, img: "images/bag.jpg", category: "womens" },
-  { id: 13, name: "Sneakers", price: 80, img: "images/shoes.jpg", category: "mens" },
-  { id: 14, name: "Jewellery Set", price: 100, img: "images/jewellery.jpg", category: "accessories" },
+  { id: 1, name: "Men's Shirt", price: "$25", img: "images/shirt.jpg", category: "men" },
+  { id: 2, name: "Women's Dress", price: "$40", img: "images/dress.jpg", category: "women" },
+  { id: 3, name: "Headphones", price: "$60", img: "images/headphones.jpg", category: "headphones" },
+  { id: 4, name: "Makeup Kit", price: "$30", img: "images/makeup.jpg", category: "makeup" },
+  { id: 5, name: "Baby Toy", price: "$15", img: "images/baby.jpg", category: "baby" },
+  { id: 6, name: "Girls Top", price: "$20", img: "images/girls.jpg", category: "girls" },
+  { id: 7, name: "Watch", price: "$50", img: "images/watch.jpg", category: "accessories" },
+  { id: 8, name: "Jacket", price: "$70", img: "images/jacket.jpg", category: "men" }
 ];
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
-let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+let filteredProducts = [...products];
 
-function saveCart() {
+// Save products in localStorage for details page
+localStorage.setItem("products", JSON.stringify(products));
+
+// Display products
+function displayProducts(list) {
+  const container = document.getElementById("product-list");
+  container.innerHTML = "";
+  if(list.length === 0){
+    container.innerHTML = `<p style="text-align:center; font-size:18px;">No products found</p>`;
+    return;
+  }
+  list.forEach(p => {
+    container.innerHTML += `
+      <div class="product-card">
+        <a href="details.html?id=${p.id}">
+          <img src="${p.img}" alt="${p.name}">
+          <h4>${p.name}</h4>
+          <p>${p.price}</p>
+        </a>
+        <button onclick="addToCart(${p.id})">Add to Cart</button>
+      </div>
+    `;
+  });
+}
+
+// Add to cart
+function addToCart(id){
+  const product = products.find(p => p.id === id);
+  cart.push(product);
   localStorage.setItem("cart", JSON.stringify(cart));
+  document.getElementById("cart-count").textContent = cart.length;
 }
 
-function saveWishlist() {
-  localStorage.setItem("wishlist", JSON.stringify(wishlist));
+// Active category button
+function setActiveCategory(button){
+  const buttons = document.querySelectorAll(".sidebar button");
+  buttons.forEach(b => b.classList.remove("active"));
+  button.classList.add("active");
 }
 
-function addToCart(id) {
-  const product = products.find(p => p.id === id);
-  if (product) {
-    cart.push(product);
-    saveCart();
-    updateCartCount();
-    alert(product.name + " added to cart!");
+// Filter category
+function filterCategory(cat, buttonElem){
+  setActiveCategory(buttonElem);
+  if(cat === "all") filteredProducts = [...products];
+  else filteredProducts = products.filter(p => p.category === cat);
+
+  const query = document.getElementById("search").value.toLowerCase();
+  if(query){
+    filteredProducts = filteredProducts.filter(p => p.name.toLowerCase().includes(query));
   }
+  displayProducts(filteredProducts);
 }
 
-function addToWishlist(id) {
-  const product = products.find(p => p.id === id);
-  if (product && !wishlist.some(item => item.id === id)) {
-    wishlist.push(product);
-    saveWishlist();
-    updateWishlistCount();
-    alert(product.name + " added to wishlist!");
-  } else {
-    alert("Already in wishlist!");
-  }
-}
+// Live search
+document.getElementById("search").addEventListener("input", (e) => {
+  const query = e.target.value.toLowerCase();
+  let result = filteredProducts.filter(p => p.name.toLowerCase().includes(query));
+  displayProducts(result);
+});
 
-function updateCartCount() {
-  document.querySelectorAll("#cart-count").forEach(el => el.textContent = cart.length);
-}
-
-function updateWishlistCount() {
-  document.querySelectorAll("#wishlist-count").forEach(el => el.textContent = wishlist.length);
-}
+// Initial load
+document.addEventListener("DOMContentLoaded", () => {
+  displayProducts(products);
+  document.getElementById("cart-count").textContent = cart.length;
+});
