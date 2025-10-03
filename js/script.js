@@ -10,55 +10,63 @@ const products = [
     { id: 5, name: "boAt Rockerz 450 Headphones", price: 1299, originalPrice: 2990, discount: 57, category: "electronics", image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400", rating: 4.1, reviews: 12000 },
     { id: 6, name: "Lenovo IdeaPad Slim 3", price: 38990, originalPrice: 49990, discount: 22, category: "electronics", image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400", rating: 4.3, reviews: 2100 },
     
-    // Men's Clothing - Affordable Fashion
-    { id: 7, name: "Men's Casual Shirt Blue", price: 499, originalPrice: 1299, discount: 62, category: "fashion", image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=400", rating: 4.2, reviews: 1800 },
-    { id: 8, name: "Men's Formal Shirt White", price: 599, originalPrice: 1499, discount: 60, category: "fashion", image: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400", rating: 4.3, reviews: 2200 },
-    { id: 9, name: "Men's Denim Jeans", price: 799, originalPrice: 1999, discount: 60, category: "fashion", image: "https://images.unsplash.com/photo-1542272604-787c3835535d?w=400", rating: 4.4, reviews: 3100 },
-    { id: 10, name: "Men's T-Shirt Pack of 3", price: 599, originalPrice: 1299, discount: 54, category: "fashion", image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400", rating: 4.1, reviews: 4500 },
-    { id: 11, name: "Men's Sports Tracksuit", price: 899, originalPrice: 2499, discount: 64, category: "fashion", image: "https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?w=400", rating: 4.3, reviews: 1600 },
-    { id: 12, name: "Men's Polo T-Shirt", price: 449, originalPrice: 999, discount: 55, category: "fashion", image: "https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=400", rating: 4.2, reviews: 2800 },
+    // Women's Clothing - Sarees, Kurtis, Palazzo, Jeans
+    { id: 7, name: "Women's Silk Saree Red", price: 899, originalPrice: 2499, discount: 64, category: "fashion", image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=400", rating: 4.6, reviews: 3800 },
+    { id: 8, name: "Women's Designer Saree Blue", price: 799, originalPrice: 1999, discount: 60, category: "fashion", image: "https://images.unsplash.com/photo-1583391733981-24c4ee552c1a?w=400", rating: 4.5, reviews: 2900 },
+    { id: 9, name: "Women's Cotton Kurti Yellow", price: 399, originalPrice: 999, discount: 60, category: "fashion", image: "https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=400", rating: 4.4, reviews: 5200 },
+    { id: 10, name: "Women's Printed Kurti Set", price: 549, originalPrice: 1299, discount: 58, category: "fashion", image: "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400", rating: 4.3, reviews: 4100 },
+    { id: 11, name: "Women's Palazzo with Top", price: 649, originalPrice: 1499, discount: 57, category: "fashion", image: "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=400", rating: 4.4, reviews: 3600 },
+    { id: 12, name: "Women's Jeans Skinny Blue", price: 699, originalPrice: 1799, discount: 61, category: "fashion", image: "https://images.unsplash.com/photo-1584370848010-d7fe6bc767ec?w=400", rating: 4.2, reviews: 4500 },
     
-    // Women's Clothing - Trendy & Affordable
-    { id: 13, name: "Women's Cotton Kurti", price: 399, originalPrice: 999, discount: 60, category: "fashion", image: "https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=400", rating: 4.4, reviews: 5200 },
-    { id: 14, name: "Women's Palazzo Set", price: 649, originalPrice: 1499, discount: 57, category: "fashion", image: "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400", rating: 4.3, reviews: 3800 },
-    { id: 15, name: "Women's Saree with Blouse", price: 799, originalPrice: 1999, discount: 60, category: "fashion", image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=400", rating: 4.5, reviews: 2900 },
-    { id: 16, name: "Women's Jeans Skinny Fit", price: 699, originalPrice: 1799, discount: 61, category: "fashion", image: "https://images.unsplash.com/photo-1584370848010-d7fe6bc767ec?w=400", rating: 4.2, reviews: 4100 },
-    { id: 17, name: "Women's Top & Skirt Set", price: 749, originalPrice: 1899, discount: 61, category: "fashion", image: "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=400", rating: 4.4, reviews: 2600 },
-    { id: 18, name: "Women's Ethnic Dress", price: 899, originalPrice: 2299, discount: 61, category: "fashion", image: "https://images.unsplash.com/photo-1612336307429-8e844c27e481?w=400", rating: 4.3, reviews: 3300 },
+    // Men's Clothing - Shirts, Pants, Jeans
+    { id: 13, name: "Men's Formal Shirt White", price: 599, originalPrice: 1499, discount: 60, category: "fashion", image: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400", rating: 4.3, reviews: 3200 },
+    { id: 14, name: "Men's Casual Shirt Blue", price: 499, originalPrice: 1299, discount: 62, category: "fashion", image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=400", rating: 4.2, reviews: 2800 },
+    { id: 15, name: "Men's Formal Pant Black", price: 799, originalPrice: 1999, discount: 60, category: "fashion", image: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=400", rating: 4.4, reviews: 2100 },
+    { id: 16, name: "Men's Denim Jeans Dark Blue", price: 799, originalPrice: 1999, discount: 60, category: "fashion", image: "https://images.unsplash.com/photo-1542272604-787c3835535d?w=400", rating: 4.5, reviews: 3800 },
+    { id: 17, name: "Men's T-Shirt Pack of 3", price: 599, originalPrice: 1299, discount: 54, category: "fashion", image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400", rating: 4.1, reviews: 5200 },
+    { id: 18, name: "Men's Kurta Pajama Set", price: 899, originalPrice: 2199, discount: 59, category: "fashion", image: "https://images.unsplash.com/photo-1622122201714-77da0ca8e5d2?w=400", rating: 4.3, reviews: 1900 },
     
-    // Kids Clothing - Boys & Girls
-    { id: 19, name: "Boys Cotton T-Shirt Pack of 5", price: 599, originalPrice: 1499, discount: 60, category: "kids", image: "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=400", rating: 4.3, reviews: 2400 },
-    { id: 20, name: "Boys Denim Shorts", price: 399, originalPrice: 999, discount: 60, category: "kids", image: "https://images.unsplash.com/photo-1519689373023-dd07c7988603?w=400", rating: 4.2, reviews: 1800 },
-    { id: 21, name: "Boys Sports Combo Set", price: 749, originalPrice: 1899, discount: 61, category: "kids", image: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400", rating: 4.4, reviews: 1500 },
-    { id: 22, name: "Girls Party Dress Pink", price: 699, originalPrice: 1799, discount: 61, category: "kids", image: "https://images.unsplash.com/photo-1518831959646-742c3a14ebf7?w=400", rating: 4.5, reviews: 2100 },
-    { id: 23, name: "Girls Frock with Leggings", price: 549, originalPrice: 1399, discount: 61, category: "kids", image: "https://images.unsplash.com/photo-1596870230751-ebdfce98ec42?w=400", rating: 4.3, reviews: 3200 },
-    { id: 24, name: "Girls Ethnic Kurti Set", price: 499, originalPrice: 1299, discount: 62, category: "kids", image: "https://images.unsplash.com/photo-1622290291468-a28f7a7fb4c0?w=400", rating: 4.4, reviews: 1900 },
-    { id: 25, name: "Kids Unisex Jacket", price: 899, originalPrice: 2299, discount: 61, category: "kids", image: "https://images.unsplash.com/photo-1514090458221-65bb69cf63e4?w=400", rating: 4.2, reviews: 1600 },
+    // Girls Clothing - Dress, Kurti, Palazzo, Jeans
+    { id: 19, name: "Girls Party Dress Pink", price: 699, originalPrice: 1799, discount: 61, category: "fashion", image: "https://images.unsplash.com/photo-1518831959646-742c3a14ebf7?w=400", rating: 4.5, reviews: 2600 },
+    { id: 20, name: "Girls Frock with Leggings", price: 549, originalPrice: 1399, discount: 61, category: "fashion", image: "https://images.unsplash.com/photo-1596870230751-ebdfce98ec42?w=400", rating: 4.4, reviews: 3400 },
+    { id: 21, name: "Girls Ethnic Kurti Set", price: 499, originalPrice: 1299, discount: 62, category: "fashion", image: "https://images.unsplash.com/photo-1622290291468-a28f7a7fb4c0?w=400", rating: 4.3, reviews: 2100 },
+    { id: 22, name: "Girls Palazzo Suit", price: 599, originalPrice: 1499, discount: 60, category: "fashion", image: "https://images.unsplash.com/photo-1621452773781-0f992fd1f5cb?w=400", rating: 4.2, reviews: 1800 },
+    { id: 23, name: "Girls Denim Jeans", price: 499, originalPrice: 1199, discount: 58, category: "fashion", image: "https://images.unsplash.com/photo-1566206091558-7f218b696731?w=400", rating: 4.3, reviews: 2400 },
+    
+    // Boys Clothing - Jeans, T-shirts, Kurta
+    { id: 24, name: "Boys Denim Jeans Blue", price: 599, originalPrice: 1499, discount: 60, category: "fashion", image: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=400", rating: 4.2, reviews: 2200 },
+    { id: 25, name: "Boys T-Shirt Pack of 5", price: 599, originalPrice: 1499, discount: 60, category: "fashion", image: "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=400", rating: 4.4, reviews: 3100 },
+    { id: 26, name: "Boys Kurta Pajama Set", price: 699, originalPrice: 1699, discount: 59, category: "fashion", image: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400", rating: 4.3, reviews: 1600 },
+    { id: 27, name: "Boys Casual Shirt", price: 449, originalPrice: 999, discount: 55, category: "fashion", image: "https://images.unsplash.com/photo-1519689373023-dd07c7988603?w=400", rating: 4.2, reviews: 1900 },
+    
+    // Kids Wear - General
+    { id: 28, name: "Kids Unisex Jacket", price: 899, originalPrice: 2299, discount: 61, category: "kids", image: "https://images.unsplash.com/photo-1514090458221-65bb69cf63e4?w=400", rating: 4.3, reviews: 1400 },
+    { id: 29, name: "Kids Winter Wear Set", price: 799, originalPrice: 1999, discount: 60, category: "kids", image: "https://images.unsplash.com/photo-1622290291468-a28f7a7fb4c0?w=400", rating: 4.4, reviews: 1700 },
     
     // Home & Furniture - Budget Options
-    { id: 26, name: "LED TV 32 inch Smart", price: 12999, originalPrice: 18999, discount: 32, category: "home", image: "https://images.unsplash.com/photo-1593784991095-a205069470b6?w=400", rating: 4.2, reviews: 2800 },
-    { id: 27, name: "Study Table Wooden", price: 3999, originalPrice: 7999, discount: 50, category: "home", image: "https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=400", rating: 4.1, reviews: 1200 },
-    { id: 28, name: "Bean Bag Chair", price: 1499, originalPrice: 3999, discount: 63, category: "home", image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400", rating: 4.3, reviews: 1800 },
+    { id: 30, name: "LED TV 32 inch Smart", price: 12999, originalPrice: 18999, discount: 32, category: "home", image: "https://images.unsplash.com/photo-1593784991095-a205069470b6?w=400", rating: 4.2, reviews: 2800 },
+    { id: 31, name: "Study Table Wooden", price: 3999, originalPrice: 7999, discount: 50, category: "home", image: "https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=400", rating: 4.1, reviews: 1200 },
+    { id: 32, name: "Bean Bag Chair", price: 1499, originalPrice: 3999, discount: 63, category: "home", image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400", rating: 4.3, reviews: 1800 },
     
     // Appliances - Essential Items
-    { id: 29, name: "Electric Kettle 1.5L", price: 599, originalPrice: 1299, discount: 54, category: "appliances", image: "https://images.unsplash.com/photo-1556911220-bff31c812dba?w=400", rating: 4.2, reviews: 3500 },
-    { id: 30, name: "Mixer Grinder 500W", price: 1899, originalPrice: 3999, discount: 53, category: "appliances", image: "https://images.unsplash.com/photo-1570222094114-d054a817e56b?w=400", rating: 4.3, reviews: 2100 },
-    { id: 31, name: "Iron Press 1000W", price: 699, originalPrice: 1499, discount: 53, category: "appliances", image: "https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=400", rating: 4.1, reviews: 4200 },
+    { id: 33, name: "Electric Kettle 1.5L", price: 599, originalPrice: 1299, discount: 54, category: "appliances", image: "https://images.unsplash.com/photo-1556911220-bff31c812dba?w=400", rating: 4.2, reviews: 3500 },
+    { id: 34, name: "Mixer Grinder 500W", price: 1899, originalPrice: 3999, discount: 53, category: "appliances", image: "https://images.unsplash.com/photo-1570222094114-d054a817e56b?w=400", rating: 4.3, reviews: 2100 },
+    { id: 35, name: "Iron Press 1000W", price: 699, originalPrice: 1499, discount: 53, category: "appliances", image: "https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=400", rating: 4.1, reviews: 4200 },
     
     // Beauty Products
-    { id: 32, name: "Lakme Face Wash Combo", price: 399, originalPrice: 799, discount: 50, category: "beauty", image: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=400", rating: 4.3, reviews: 5600 },
-    { id: 33, name: "Maybelline Lipstick Set", price: 599, originalPrice: 1199, discount: 50, category: "beauty", image: "https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400", rating: 4.4, reviews: 4800 },
-    { id: 34, name: "Hair Oil Combo Pack", price: 299, originalPrice: 599, discount: 50, category: "beauty", image: "https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?w=400", rating: 4.2, reviews: 3200 },
+    { id: 36, name: "Lakme Face Wash Combo", price: 399, originalPrice: 799, discount: 50, category: "beauty", image: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=400", rating: 4.3, reviews: 5600 },
+    { id: 37, name: "Maybelline Lipstick Set", price: 599, originalPrice: 1199, discount: 50, category: "beauty", image: "https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400", rating: 4.4, reviews: 4800 },
+    { id: 38, name: "Hair Oil Combo Pack", price: 299, originalPrice: 599, discount: 50, category: "beauty", image: "https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?w=400", rating: 4.2, reviews: 3200 },
     
     // Sports & Fitness
-    { id: 35, name: "Yoga Mat 6mm", price: 499, originalPrice: 999, discount: 50, category: "sports", image: "https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=400", rating: 4.3, reviews: 2800 },
-    { id: 36, name: "Skipping Rope", price: 199, originalPrice: 499, discount: 60, category: "sports", image: "https://images.unsplash.com/photo-1601925260559-2cfb76e08e4f?w=400", rating: 4.1, reviews: 1900 },
-    { id: 37, name: "Gym Bag", price: 699, originalPrice: 1499, discount: 53, category: "sports", image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400", rating: 4.2, reviews: 1500 },
+    { id: 39, name: "Yoga Mat 6mm", price: 499, originalPrice: 999, discount: 50, category: "sports", image: "https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=400", rating: 4.3, reviews: 2800 },
+    { id: 40, name: "Skipping Rope", price: 199, originalPrice: 499, discount: 60, category: "sports", image: "https://images.unsplash.com/photo-1601925260559-2cfb76e08e4f?w=400", rating: 4.1, reviews: 1900 },
+    { id: 41, name: "Gym Bag", price: 699, originalPrice: 1499, discount: 53, category: "sports", image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400", rating: 4.2, reviews: 1500 },
     
     // Books
-    { id: 38, name: "Rich Dad Poor Dad", price: 299, originalPrice: 450, discount: 34, category: "books", image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400", rating: 4.8, reviews: 8900 },
-    { id: 39, name: "Atomic Habits", price: 349, originalPrice: 599, discount: 42, category: "books", image: "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?w=400", rating: 4.9, reviews: 12000 },
-    { id: 40, name: "The Psychology of Money", price: 279, originalPrice: 450, discount: 38, category: "books", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400", rating: 4.7, reviews: 7800 }
+    { id: 42, name: "Rich Dad Poor Dad", price: 299, originalPrice: 450, discount: 34, category: "books", image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400", rating: 4.8, reviews: 8900 },
+    { id: 43, name: "Atomic Habits", price: 349, originalPrice: 599, discount: 42, category: "books", image: "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?w=400", rating: 4.9, reviews: 12000 },
+    { id: 44, name: "The Psychology of Money", price: 279, originalPrice: 450, discount: 38, category: "books", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400", rating: 4.7, reviews: 7800 }
 ];
 
 // State Management
