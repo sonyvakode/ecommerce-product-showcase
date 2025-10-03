@@ -81,11 +81,13 @@ function initializePage() {
     }
 }
 
-// Display Products with proper formatting
+// Display Products
 function displayProducts(productsToShow) {
     const grid = document.getElementById('productsGrid');
+    if (!grid) return;
+    
     if (productsToShow.length === 0) {
-        grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 40px; color: #999;">No products found matching your criteria.</p>';
+        grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 40px; color: #999;">No products found.</p>';
         return;
     }
     
@@ -107,12 +109,12 @@ function displayProducts(productsToShow) {
     `).join('');
 }
 
-// Format Price with Indian number system
+// Format Price
 function formatPrice(price) {
     return price.toLocaleString('en-IN');
 }
 
-// Format number
+// Format Number
 function formatNumber(num) {
     if (num >= 1000) {
         return (num / 1000).toFixed(1) + 'k';
@@ -124,11 +126,12 @@ function formatNumber(num) {
 function filterCategory(category) {
     currentCategory = category;
     
-    // Update active state in sidebar
     document.querySelectorAll('.category-list li').forEach(li => {
         li.classList.remove('active');
     });
-    event.target.classList.add('active');
+    if (event && event.target) {
+        event.target.classList.add('active');
+    }
     
     applyFilters();
     
@@ -145,7 +148,7 @@ function filterCategory(category) {
         'books': 'Books & Media'
     };
     
-    document.getElementById('sectionTitle').textContent = categoryNames[category];
+    document.getElementById('sectionTitle').textContent = categoryNames[category] || 'All Products';
 }
 
 // Filter by Price
@@ -154,16 +157,14 @@ function filterPrice(range) {
     applyFilters();
 }
 
-// Apply all filters
+// Apply Filters
 function applyFilters() {
     let filtered = products;
     
-    // Category filter
     if (currentCategory !== 'all') {
         filtered = filtered.filter(p => p.category === currentCategory);
     }
     
-    // Price filter
     if (currentPriceFilter !== 'all') {
         filtered = filtered.filter(p => {
             switch(currentPriceFilter) {
@@ -182,7 +183,6 @@ function applyFilters() {
 
 // Filter by Rating
 function filterRating() {
-    // Get all checked rating checkboxes
     const checkedRatings = Array.from(document.querySelectorAll('.rating-filter input:checked'))
         .map(input => parseFloat(input.value));
     
@@ -211,9 +211,6 @@ function sortProducts() {
         case 'rating':
             sorted.sort((a, b) => b.rating - a.rating);
             break;
-        case 'newest':
-            sorted.reverse();
-            break;
     }
     
     displayProducts(sorted);
@@ -238,28 +235,20 @@ function searchProducts() {
     document.getElementById('sectionTitle').textContent = `Search Results for "${searchTerm}"`;
 }
 
-// View Product Details
+// View Product
 function viewProduct(productId) {
     const product = products.find(p => p.id === productId);
-    const savings = product.originalPrice - product.price;
+    if (!product) return;
     
-    alert(`
-📱 ${product.name}
-
-💰 Price: ₹${formatPrice(product.price)}
-${product.originalPrice ? `\n💵 MRP: ₹${formatPrice(product.originalPrice)}\n💚 You Save: ₹${formatPrice(savings)} (${product.discount}% off)` : ''}
-
-⭐ Rating: ${product.rating}/5 (${formatNumber(product.reviews)} reviews)
-
-🛒 Click "Add to Cart" to purchase!
-
-Full product page coming soon!
-    `);
+    const savings = product.originalPrice - product.price;
+    alert(`📱 ${product.name}\n\n💰 Price: ₹${formatPrice(product.price)}\n💵 MRP: ₹${formatPrice(product.originalPrice)}\n💚 You Save: ₹${formatPrice(savings)} (${product.discount}% off)\n\n⭐ Rating: ${product.rating}/5\n\n🛒 Click "Add to Cart" to purchase!`);
 }
 
 // Add to Cart
 function addToCart(productId) {
     const product = products.find(p => p.id === productId);
+    if (!product) return;
+    
     cart.push(product);
     updateCartCount();
     saveCart();
@@ -268,20 +257,28 @@ function addToCart(productId) {
 
 // Update Cart Count
 function updateCartCount() {
-    document.getElementById('cartCount').textContent = cart.length;
+    const countEl = document.getElementById('cartCount');
+    if (countEl) {
+        countEl.textContent = cart.length;
+    }
 }
 
-// View Cart with Modal
+// View Cart
 function viewCart() {
     const modal = document.getElementById('cartModal');
     const cartList = document.getElementById('cartItemsList');
+    
+    if (!modal || !cartList) {
+        alert('Cart feature is loading...');
+        return;
+    }
     
     if (cart.length === 0) {
         cartList.innerHTML = `
             <div class="empty-cart">
                 <div class="empty-cart-icon">🛒</div>
                 <p style="font-size: 18px; margin-bottom: 10px;">Your cart is empty!</p>
-                <p>Start shopping to add items to your cart.</p>
+                <p>Start shopping to add items.</p>
             </div>
         `;
         document.getElementById('cartSubtotal').textContent = '₹0';
@@ -313,7 +310,10 @@ function viewCart() {
 
 // Close Cart Modal
 function closeCartModal() {
-    document.getElementById('cartModal').style.display = 'none';
+    const modal = document.getElementById('cartModal');
+    if (modal) {
+        modal.style.display = 'none';
+    }
 }
 
 // Remove from Cart
@@ -322,8 +322,8 @@ function removeFromCart(index) {
     cart.splice(index, 1);
     updateCartCount();
     saveCart();
-    showNotification(`🗑️ ${removedItem.name} removed from cart!`);
-    viewCart(); // Refresh cart view
+    showNotification(`🗑️ ${removedItem.name} removed!`);
+    viewCart();
 }
 
 // Proceed to Checkout
@@ -334,7 +334,7 @@ function proceedToCheckout() {
     }
     
     const total = cart.reduce((sum, item) => sum + item.price, 0);
-    alert(`🎉 Proceeding to checkout!\n\nTotal Amount: ₹${formatPrice(total)}\n\nCheckout page coming soon!`);
+    alert(`🎉 Checkout!\n\nTotal: ₹${formatPrice(total)}\n\nCheckout page coming soon!`);
     closeCartModal();
 }
 
@@ -353,11 +353,17 @@ function loadCart() {
 
 // Login Functions
 function showLogin() {
-    document.getElementById('loginModal').style.display = 'block';
+    const modal = document.getElementById('loginModal');
+    if (modal) {
+        modal.style.display = 'block';
+    }
 }
 
 function closeLogin() {
-    document.getElementById('loginModal').style.display = 'none';
+    const modal = document.getElementById('loginModal');
+    if (modal) {
+        modal.style.display = 'none';
+    }
     document.getElementById('phoneStep').style.display = 'block';
     document.getElementById('otpStep').style.display = 'none';
     document.getElementById('phoneNumber').value = '';
@@ -368,7 +374,7 @@ function sendOTP() {
     const phoneNumber = document.getElementById('phoneNumber').value;
     
     if (phoneNumber.length !== 10 || !/^\d+$/.test(phoneNumber)) {
-        alert('❌ Please enter a valid 10-digit mobile number');
+        alert('❌ Please enter valid 10-digit mobile number');
         return;
     }
     
@@ -384,7 +390,7 @@ function verifyOTP() {
     const otp = document.getElementById('otpInput').value;
     
     if (otp.length !== 6) {
-        alert('❌ Please enter a valid 6-digit OTP');
+        alert('❌ Please enter valid 6-digit OTP');
         return;
     }
     
@@ -392,20 +398,20 @@ function verifyOTP() {
         const phoneNumber = document.getElementById('phoneNumber').value;
         currentUser = {
             phone: phoneNumber,
-            name: 'User ' + phoneNumber.substr(-4)
+            name: 'User'
         };
         
         sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
         updateSignInButton();
         closeLogin();
-        showNotification('✓ Successfully logged in!');
+        showNotification('✓ Logged in successfully!');
     } else {
-        alert('❌ Invalid OTP. For testing, use: 123456');
+        alert('❌ Invalid OTP. Use: 123456');
     }
 }
 
 function resendOTP() {
-    showNotification('✓ OTP resent successfully!');
+    showNotification('✓ OTP resent!');
     console.log('Test OTP: 123456');
 }
 
@@ -415,14 +421,9 @@ function changeNumber() {
 }
 
 function updateSignInButton() {
-    if (currentUser) {
-        document.getElementById('signInBtn').innerHTML = `
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                <circle cx="12" cy="7" r="4"></circle>
-            </svg>
-            <span>${currentUser.name}</span>
-        `;
+    const btn = document.getElementById('signInBtn');
+    if (currentUser && btn) {
+        btn.querySelector('span:last-child').textContent = currentUser.name;
     }
 }
 
@@ -433,25 +434,23 @@ function showNotification(message) {
         position: fixed;
         top: 90px;
         right: 20px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: #ff9f00;
         color: white;
         padding: 15px 25px;
-        border-radius: 10px;
+        border-radius: 8px;
         z-index: 10001;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-        animation: slideIn 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         font-weight: 600;
     `;
     notification.textContent = message;
     document.body.appendChild(notification);
     
     setTimeout(() => {
-        notification.style.animation = 'slideOut 0.3s ease';
-        setTimeout(() => notification.remove(), 300);
+        notification.remove();
     }, 2500);
 }
 
-// Close modal on outside click
+// Close modals on outside click
 window.onclick = function(event) {
     const loginModal = document.getElementById('loginModal');
     const cartModal = document.getElementById('cartModal');
@@ -464,10 +463,10 @@ window.onclick = function(event) {
     }
 }
 
-// Initialize on load
+// Initialize
 window.onload = initializePage;
 
-// Search on Enter key
+// Search on Enter
 document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('searchInput');
     if (searchInput) {
