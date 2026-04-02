@@ -1,4 +1,3 @@
-// Save data locally
 function getRecords() {
     return JSON.parse(localStorage.getItem("records")) || [];
 }
@@ -7,11 +6,15 @@ function saveRecords(records) {
     localStorage.setItem("records", JSON.stringify(records));
 }
 
-// Add record
 function addFinanceRecord() {
     const amount = document.getElementById("f_amount").value;
     const category = document.getElementById("f_category").value;
     const type = document.getElementById("f_type").value;
+
+    if (!amount || !category) {
+        alert("Please fill all fields");
+        return;
+    }
 
     const records = getRecords();
 
@@ -24,25 +27,39 @@ function addFinanceRecord() {
 
     saveRecords(records);
 
+    document.getElementById("f_amount").value = "";
+    document.getElementById("f_category").value = "";
+
     loadFinanceRecords();
     loadFinanceSummary();
 }
 
-// Load records
 function loadFinanceRecords() {
     const records = getRecords();
 
     let html = "";
-    records.forEach(r => {
-        html += `<div style="background:white;padding:8px;margin:5px;border-radius:6px;">
-            ₹${r.amount} - ${r.category} (${r.type})
-        </div>`;
+
+    records.forEach((r, index) => {
+        html += `
+            <div style="background:white;padding:10px;margin:6px;border-radius:8px;">
+                ₹${r.amount} - ${r.category} (${r.type})
+                <button onclick="deleteRecord(${index})" style="float:right;">❌</button>
+            </div>
+        `;
     });
 
     document.getElementById("finance_records").innerHTML = html;
 }
 
-// Load summary
+function deleteRecord(index) {
+    const records = getRecords();
+    records.splice(index, 1);
+    saveRecords(records);
+
+    loadFinanceRecords();
+    loadFinanceSummary();
+}
+
 function loadFinanceSummary() {
     const records = getRecords();
 
@@ -55,12 +72,13 @@ function loadFinanceSummary() {
     });
 
     document.getElementById("finance_summary").innerHTML = `
-        <p><b>Income:</b> ₹${income}</p>
-        <p><b>Expense:</b> ₹${expense}</p>
+        <p><b>Total Income:</b> ₹${income}</p>
+        <p><b>Total Expense:</b> ₹${expense}</p>
         <p><b>Balance:</b> ₹${income - expense}</p>
     `;
 }
 
-// Auto load
-loadFinanceRecords();
-loadFinanceSummary();
+window.onload = function () {
+    loadFinanceRecords();
+    loadFinanceSummary();
+};
